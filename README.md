@@ -1,5 +1,5 @@
 # RazorEnhacedPythonScripts
-A collection of personal Pyhon scripts for Razor Enhanced.
+A collection of Pyhon scripts for RazorEnhanced.
 
 Most of them are written for [Demise](https://www.uogdemise.com/) server.
 
