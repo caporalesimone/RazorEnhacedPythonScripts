@@ -1,7 +1,7 @@
 import clr
 import sys
 
-DEF_FILEPATH = "d:\\bods.txt"
+DEF_FILEPATH = "C:\\temp\\bods.txt"
 DEF_LARGE_BOD = "Large"
 DEF_SMALL_BOD = "Small"
 
