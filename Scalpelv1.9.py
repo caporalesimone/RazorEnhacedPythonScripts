@@ -1,7 +1,7 @@
 #Need friends list named 'friend' !!!!!!!!!
 ### DO NOT ADD URSELF TO YOUR FRIENDS LIST
 #### to run this u need a folder in your scripts folder named  'Scalpel'
-
+from System import Int32
 from time import sleep
 from datetime import datetime
 import clr, time, sys, System, math
@@ -45,7 +45,7 @@ BFilter.RangeMax = 3
 BFilter.OnGround = True
 BFilter.Enabled = True
 BFilter.Movable = True
-BFilter.Graphics = List[int]([0xA278, 0xA27F])
+BFilter.Graphics = List[Int32]([0xA278, 0xA27F])
 
 #########################MINI MAP STUFF ################# 
  
