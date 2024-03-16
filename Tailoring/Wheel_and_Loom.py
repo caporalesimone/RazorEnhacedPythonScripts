@@ -1,3 +1,5 @@
+from System.Collections.Generic import List
+from System import Int32 as int
 import sys, math
 
 
@@ -10,12 +12,10 @@ linenwhool = [
                 0x1A9D, # Flax Bundle 2
              ]
              
-wheelID = 0x1015  # 0x1015 0x101c 0x1019
-loomID = 0x1062
+wheelID = List[int]([0x1015, 0x101c, 0x1019])
+loomID = List[int]([0x1062, 0x105F])
 spoolID = 0x0FA0
 boltofclothID = 0x0F95
-
-
 
 def distance2D(pos1, pos2):
     return math.sqrt( ((pos1.X - pos2.X)**2) + ((pos1.Y - pos2.Y)**2) )
@@ -24,9 +24,8 @@ def stopWithError(errorMessage):
     Misc.SendMessage(errorMessage)
     sys.exit(errorMessage)
 
-
 def getWheelIfPlayerIsCloseTo():
-    wheel = Items.FindByID(wheelID, -1, -1)
+    wheel = Items.FindByID(wheelID, 0, -1, 3, False)
     if wheel == None:
         stopWithError('No Spinning Wheel found')
     
@@ -38,7 +37,7 @@ def getWheelIfPlayerIsCloseTo():
 
 
 def getLoomIfPlayerIsCloseTo():
-    loom = Items.FindByID(loomID, -1, -1)
+    loom = Items.FindByID(loomID, 0, -1, 3, False)
     if loom == None:
         stopWithError('No Loom found')
     
@@ -100,7 +99,6 @@ for resource in linenwhool:
         boltofcloth = Items.FindByID(boltofclothID, 0, Player.Backpack.Serial)
         Items.Move(boltofcloth, container, 0)
         Misc.Pause(1000)
-        
 
         
 Player.HeadMessage(30, "Batch of material done")
