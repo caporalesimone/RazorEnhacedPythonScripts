@@ -21,16 +21,16 @@ lootList = [
             0x0F13, # Ruby
             0x0F15, # Citrine
             0x0F16, # Amethyst
-            0x0F19, # Sapphire
-            0x0F21, # Star sapphire
+            0x0F11, 0x0F19, # Sapphire
+            0x0F0F, 0x0F21, # Star sapphire
             0x0F25, # Amber
             0x0F26, # Diamond
-            0x0F2D, # Tourmaline
+            0x0F18, 0x0F2D, # Tourmaline
            ]
 
 ###########################################           
             
-lootBagSerial = 0x418F4150
+lootBagSerial = 0x40822EA6
 
 chestSerial = Target.PromptTarget("Target Chest")
 if chestSerial > 0:
