@@ -3,8 +3,10 @@ from System import Int32 as int
 import sys, math
 
 
-DRAGGED_SOURCE_CNT = 50
-DRAGGED_SPOOL_CNT = 50
+DRAGGED_SOURCE_CNT = 5
+DRAGGED_SPOOL_CNT = 25
+LOOM_USAGE_PAUSE = 150
+
 
 linenwhool = [
                 0x0DF9, # Cotton
@@ -49,15 +51,31 @@ def getLoomIfPlayerIsCloseTo():
     
     
 def useLoom(fromContainer):
-  spool = Items.FindByID(spoolID, 0, fromContainer.Serial)
-  if spool != None:
-    Items.UseItem(spool.Serial)
-    Target.WaitForTarget(20000)
-    Target.TargetExecute(loom)
-    Misc.Pause(300)
+  spools = Items.FindByID(spoolID, 0, fromContainer.Serial)
+  if spools != None:
+    for i in range(spools.Amount):
+        # Use the current spool
+        Items.UseItem(spools.Serial)
+        Target.WaitForTarget(20000)
+        Target.TargetExecute(loom)
+        Misc.Pause(LOOM_USAGE_PAUSE)
+      
+        
+def waitWheelEnds(fromContainer):
+
+    spools_count = 0
+    spools = Items.FindByID(spoolID, 0, fromContainer.Serial)
+    if spools != None:
+        spools_count = spools.Amount
     
-    
-    
+    Player.HeadMessage(30, "Waiting wheel ends")
+    while True:
+        spools = Items.FindByID(spoolID, 0, fromContainer.Serial)
+        if spools != None and spools.Amount > spools_count:
+            break
+        else:
+            Misc.Pause(200)
+        
 ##########################################################
 
 wheel = getWheelIfPlayerIsCloseTo()
@@ -70,36 +88,41 @@ Misc.Pause(1000)
 for resource in linenwhool:
     source = Items.FindByID(resource, 0, container.Serial)
     while source != None and source.Amount:
-        Player.HeadMessage(30, "Taking resource from container")
-        Misc.SendMessage("Remaining " + str(source.Amount) + " " + source.Name)
+        Player.HeadMessage(30, "Found " + source.Name)
+        Player.HeadMessage(30, "Taking " + str(DRAGGED_SOURCE_CNT) + " from the container")
+        
         Items.Move(source, Player.Backpack, DRAGGED_SOURCE_CNT)
         Misc.Pause(1000)
-        source = Items.FindByID(resource, 0, container.Serial)
         
         # Start using Items
         using = Items.FindByID(resource, 0, Player.Backpack.Serial)
-        while using != None and using.Amount:
+        while using != None:
+            Player.HeadMessage(30, "Using the wheel")
             Items.UseItem(using.Serial)
             Target.WaitForTarget(20000)
             Target.TargetExecute(wheel)
-            Misc.Pause(700)
+            waitWheelEnds(Player.Backpack)
+            
+            Player.HeadMessage(30, "Using the wheel")
+            Items.UseItem(using.Serial)
+            Target.WaitForTarget(20000)
+            Target.TargetExecute(wheel)
+            Misc.Pause(500)
+            
+            Player.HeadMessage(30, "Using the loom")
             useLoom(Player.Backpack)
-            Misc.Pause(700)
-            useLoom(Player.Backpack)
-            Misc.Pause(700)
-            using = Items.FindByID(resource, 0, Player.Backpack.Serial)
-            Misc.Pause(3000)
-        
-        # If there are some spool of threads in the BackPack i put into the resource
-        spool = Items.FindByID(spoolID, 0, Player.Backpack.Serial)
-        Items.Move(spool, container, 0)
-        Misc.Pause(1000)
 
+            using = Items.FindByID(resource, 0, Player.Backpack.Serial)
+            Misc.Pause(500)
+        
         # If there are some Bolt of Cloth in the BackPack i put into the resource
         boltofcloth = Items.FindByID(boltofclothID, 0, Player.Backpack.Serial)
-        Items.Move(boltofcloth, container, 0)
-        Misc.Pause(1000)
+        if boltofcloth != None:
+            Player.HeadMessage(30, "Moving bolt of cloth into the container")
+            Items.Move(boltofcloth, container, 0)
+            Misc.Pause(1000)
 
+        source = Items.FindByID(resource, 0, container.Serial)
         
 Player.HeadMessage(30, "Batch of material done")
 # If there are some spool of threads in the Container i use them
@@ -107,14 +130,14 @@ spool = Items.FindByID(spoolID, 0, container.Serial)
 while spool != None and spool.Amount:
     Player.HeadMessage(30, "Finishing remaining spool of thread")
     Items.Move(spool, Player.Backpack, DRAGGED_SPOOL_CNT)
+    
     Misc.Pause(1000)
     spoolBackpack = Items.FindByID(spoolID, 0, Player.Backpack.Serial)
-    while spoolBackpack != None and spoolBackpack.Amount:
+    if spoolBackpack != None:
         useLoom(Player.Backpack)
         Misc.Pause(700)
-        spoolBackpack = Items.FindByID(spoolID, 0, Player.Backpack.Serial)
-    spool = Items.FindByID(spoolID, 0, container.Serial)
 
+    spool = Items.FindByID(spoolID, 0, container.Serial)
     # If there are some Bolt of Cloth in the BackPack i put into the resource
     boltofcloth = Items.FindByID(boltofclothID, 0, Player.Backpack.Serial)
     Items.Move(boltofcloth, container, 0)

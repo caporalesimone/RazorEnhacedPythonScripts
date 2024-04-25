@@ -1,21 +1,21 @@
 lootList = [
             0x0EED, # Gold
 
-            0x0F7A, # Black Pearl
-            0x0F7B, # Blood Moss            
-            0x0F84, # Garlic
-            0x0F85, # Ginseng
-            0x0F86, # Mandrake Root
-            0x0F88, # NightShade
-            0x0F8C, # Sulfurous Ash
-            0x0F8D, # Spiders' Silk
+            #0x0F7A, # Black Pearl
+            #0x0F7B, # Blood Moss            
+            #0x0F84, # Garlic
+            #0x0F85, # Ginseng
+            #0x0F86, # Mandrake Root
+            #0x0F88, # NightShade
+            #0x0F8C, # Sulfurous Ash
+            #0x0F8D, # Spiders' Silk
             
-            0x0F78, # Batwing
-            0x0F7D, # Daemon Blood
-            0x0F7E, # Bone
-            0x0F8A, # Pig Iron
-            0x0F8E, # Nox Crystal
-            0x0F8F, # Grave Dust
+            #0x0F78, # Batwing
+            #0x0F7D, # Daemon Blood
+            #0x0F7E, # Bone
+            #0x0F8A, # Pig Iron
+            #0x0F8E, # Nox Crystal
+            #0x0F8F, # Grave Dust
             
             0x0F10, # Emerald
             0x0F13, # Ruby
@@ -30,7 +30,7 @@ lootList = [
 
 ###########################################           
             
-lootBagSerial = 0x40822EA6
+lootBagSerial = 0x41670969
 
 chestSerial = Target.PromptTarget("Target Chest")
 if chestSerial > 0:

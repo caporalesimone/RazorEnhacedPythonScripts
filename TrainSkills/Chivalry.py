@@ -10,7 +10,9 @@ while True:
         Misc.Pause(10000)
     
     skill = Player.GetRealSkillValue("Chivalry")
-    Misc.Pause(1000)
+    if skill >= 100:
+        Player.HeadMessage(33, "Done!")
+        break
     if skill > 35 and skill <= 45:
         Spells.CastChivalry("Dispel Evil")
         Misc.Pause(3000)
