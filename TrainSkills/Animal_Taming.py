@@ -1,6 +1,6 @@
 
 def RenamePet(animal):
-    Misc.PetRename(animal, "Tamed")
+    Misc.PetRename(animal, "Pasquale")
 
 def ReleasePet(animal):
     Misc.WaitForContext(animal,1000,False)
@@ -13,9 +13,9 @@ def ReleasePet(animal):
     Gumps.SendAction(gump, 2) # Select Animals
     Misc.Pause(500)
     Mobiles.Message(animal, 33, "Bye Bye my friend!")
-    Player.ChatSay("All kill")
-    Target.WaitForTarget(1000,True)
-    Target.TargetExecute(animal)
+    #Player.ChatSay("All kill")
+    #Target.WaitForTarget(1000,True)
+    #Target.TargetExecute(animal)
     
 
 def Tame(animal):
@@ -34,7 +34,7 @@ def Tame(animal):
             if Journal.Search("It seems to accept you"):
                 Player.HeadMessage(33, "Tame done, bye bye pet")
                 RenamePet(animal)
-                ReleasePet(animal)
+                #ReleasePet(animal)
                 CUO.FollowOff()
                 return
             if Journal.Search("You have no chance of taming"):
